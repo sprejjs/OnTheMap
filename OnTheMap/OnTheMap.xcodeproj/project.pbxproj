@@ -15,7 +15,7 @@
 		2CBC46FCA352A5549CF1F7FB /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC476F1429BF05B4AAA4A5 /* OnTheMapTests.swift */; };
 		2CBC4C4BBB82C847F4BAAF7D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC468E451963E8A6F41D0A /* TabViewController.swift */; };
 		2CBC4D2E014FA5C4C7400EF3 /* PreLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC470013410486FCF26EF7 /* PreLoginViewController.swift */; };
-		2CBC4F311924F5B6092BDB82 /* APIFasade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC418FB47892DF903CCC27 /* APIFasade.swift */; };
+		2CBC4F311924F5B6092BDB82 /* ApiFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC418FB47892DF903CCC27 /* ApiFacade.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +32,7 @@
 		17AB0E3A1AB0E82B00D4AB88 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		17AB0E3B1AB0E82B00D4AB88 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2CBC40A84C00374264893A7C /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CBC418FB47892DF903CCC27 /* APIFasade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIFasade.swift; sourceTree = "<group>"; };
+		2CBC418FB47892DF903CCC27 /* ApiFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiFacade.swift; sourceTree = "<group>"; };
 		2CBC4404B46D5BD841006C07 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC468E451963E8A6F41D0A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		2CBC46D5E20A8795B9F4BF27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		2CBC4819A238D6222CCA055F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2CBC418FB47892DF903CCC27 /* APIFasade.swift */,
+				2CBC418FB47892DF903CCC27 /* ApiFacade.swift */,
 				2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */,
 			);
 			path = Model;
@@ -245,7 +245,7 @@
 				2CBC44634C451C98ACECCCA7 /* AppDelegate.swift in Sources */,
 				2CBC4D2E014FA5C4C7400EF3 /* PreLoginViewController.swift in Sources */,
 				2CBC4C4BBB82C847F4BAAF7D /* TabViewController.swift in Sources */,
-				2CBC4F311924F5B6092BDB82 /* APIFasade.swift in Sources */,
+				2CBC4F311924F5B6092BDB82 /* ApiFacade.swift in Sources */,
 				2CBC43990A2F6A82593A7F77 /* StudentLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

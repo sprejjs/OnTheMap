@@ -12,4 +12,13 @@ class TabViewController : UITabBarController {
         super.viewDidLoad()
         self.title = "On The Map"
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let apiFacade = appDelegate.apiFacade
+        
+        apiFacade.getStudentsLocations(false)
+    }
 }

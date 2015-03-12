@@ -19,9 +19,9 @@ class StudentLocation : NSObject {
     var uniqueKey : String?
     var updatedAt : String?
 
-    init(jsonData: NSData){
+    init(dictionary: NSDictionary){
         //TODO add jSON parsing logic here
-        self.createdAt = nil
+        self.createdAt = nil//dictionary["createdAt"]
         self.firstName = nil
         self.lastName = nil
         self.latitude = nil
