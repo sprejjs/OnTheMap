@@ -14,7 +14,10 @@
 		2CBC43990A2F6A82593A7F77 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */; };
 		2CBC440C34CA0C42FF6B0D8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CBC46D5E20A8795B9F4BF27 /* Images.xcassets */; };
 		2CBC44634C451C98ACECCCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4D3AB48941F280B1EFE4 /* AppDelegate.swift */; };
+		2CBC4532AFD0E23C6EC371A7 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC498FD788DB42A8665247 /* UIImage.swift */; };
 		2CBC46FCA352A5549CF1F7FB /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC476F1429BF05B4AAA4A5 /* OnTheMapTests.swift */; };
+		2CBC4A1D1B1DE04BF42EEC3C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4D2B5C040B8A3F0C703B /* UIColor.swift */; };
+		2CBC4B2B3AB2888C1CFDEE8F /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */; };
 		2CBC4C4BBB82C847F4BAAF7D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC468E451963E8A6F41D0A /* TabViewController.swift */; };
 		2CBC4D2E014FA5C4C7400EF3 /* PreLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC470013410486FCF26EF7 /* PreLoginViewController.swift */; };
 		2CBC4D8D81560E5601CD457A /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4E42F0DA9CE8C3E90EA0 /* LocationsTableViewController.swift */; };
@@ -46,7 +49,10 @@
 		2CBC470013410486FCF26EF7 /* PreLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreLoginViewController.swift; sourceTree = "<group>"; };
 		2CBC470B7AE355E7F5BFE6E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		2CBC476F1429BF05B4AAA4A5 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		2CBC498FD788DB42A8665247 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		2CBC4D2B5C040B8A3F0C703B /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		2CBC4D3AB48941F280B1EFE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CBC4E42F0DA9CE8C3E90EA0 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 		2CBC4F33E424222E4F89C702 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -130,6 +136,8 @@
 			children = (
 				17AB0E3A1AB0E82B00D4AB88 /* LaunchScreen.xib */,
 				17AB0E3B1AB0E82B00D4AB88 /* Main.storyboard */,
+				2CBC498FD788DB42A8665247 /* UIImage.swift */,
+				2CBC4D2B5C040B8A3F0C703B /* UIColor.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 				2CBC468E451963E8A6F41D0A /* TabViewController.swift */,
 				2CBC4E42F0DA9CE8C3E90EA0 /* LocationsTableViewController.swift */,
 				2CBC44ACA434D278054EF5C6 /* LocationsMapViewController.swift */,
+				2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -263,6 +272,9 @@
 				2CBC4D8D81560E5601CD457A /* LocationsTableViewController.swift in Sources */,
 				2CBC4E035AE9EF9A70ABE675 /* ApiFactory.swift in Sources */,
 				2CBC405E146E2DDBDA56FBAF /* LocationsMapViewController.swift in Sources */,
+				2CBC4B2B3AB2888C1CFDEE8F /* InformationPostingViewController.swift in Sources */,
+				2CBC4532AFD0E23C6EC371A7 /* UIImage.swift in Sources */,
+				2CBC4A1D1B1DE04BF42EEC3C /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

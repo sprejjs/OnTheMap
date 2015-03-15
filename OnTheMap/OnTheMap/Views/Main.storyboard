@@ -26,6 +26,141 @@
             </objects>
             <point key="canvasLocation" x="-982" y="692"/>
         </scene>
+        <!--Information Posting View Controller-->
+        <scene sceneID="Cgd-Bd-FuW">
+            <objects>
+                <viewController id="zL7-3Z-LJZ" customClass="InformationPostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hGQ-Qp-p73"/>
+                        <viewControllerLayoutGuide type="bottom" id="RVG-lU-2EC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dhJ-gQ-QfS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6HX-x2-xbM">
+                                <rect key="frame" x="0.0" y="200" width="600" height="200"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter details" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gqQ-cu-5l0">
+                                        <rect key="frame" x="8" y="43" width="584" height="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.53757195719999995" green="0.28258634869999999" blue="0.44413034540000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="gqQ-cu-5l0" firstAttribute="top" secondItem="6HX-x2-xbM" secondAttribute="top" constant="43" id="3fY-zl-TZZ"/>
+                                    <constraint firstItem="gqQ-cu-5l0" firstAttribute="leading" secondItem="6HX-x2-xbM" secondAttribute="leading" constant="8" id="6Fi-Ku-g8k"/>
+                                    <constraint firstAttribute="trailing" secondItem="gqQ-cu-5l0" secondAttribute="trailing" constant="8" id="Grr-75-w2c"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHZ-9A-MZ0">
+                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PTP-wR-3Kx">
+                                        <rect key="frame" x="185" y="80" width="230" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="230" id="6HU-8e-cY2"/>
+                                            <constraint firstAttribute="height" constant="40" id="eV0-yI-9NP"/>
+                                        </constraints>
+                                        <state key="normal" title="Find on the Map">
+                                            <color key="titleColor" red="0.80392156862745101" green="0.40392156862745099" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="findOnTheMap" destination="zL7-3Z-LJZ" eventType="touchUpInside" id="4VN-7e-rKv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80784313725490198" green="0.85490196078431369" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="PTP-wR-3Kx" secondAttribute="centerY" id="7xV-oI-VkN"/>
+                                    <constraint firstAttribute="centerX" secondItem="PTP-wR-3Kx" secondAttribute="centerX" id="oLX-It-wC0"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEl-dj-Wxs">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ok-V2-bW8">
+                                        <rect key="frame" x="220" y="58" width="160" height="84"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="ZMl-TU-kvI"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Where are you">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.39215686274509803" green="0.50196078431372548" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=" ">
+                                                <attributes>
+                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="studying">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.45882352941176469" green="0.094117647058823528" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=" ">
+                                                <attributes>
+                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="today?">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.70588235294117652" green="0.48627450980392156" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80784313725490198" green="0.85490196078431369" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="0Ok-V2-bW8" secondAttribute="centerX" id="Hzl-fG-YvU"/>
+                                    <constraint firstAttribute="centerY" secondItem="0Ok-V2-bW8" secondAttribute="centerY" id="c8f-xm-k7z"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6HX-x2-xbM" secondAttribute="trailing" id="28B-cR-h6m"/>
+                            <constraint firstAttribute="trailing" secondItem="uHZ-9A-MZ0" secondAttribute="trailing" id="8MZ-Ko-6tL"/>
+                            <constraint firstItem="uHZ-9A-MZ0" firstAttribute="leading" secondItem="dhJ-gQ-QfS" secondAttribute="leading" id="94z-VW-puR"/>
+                            <constraint firstItem="6HX-x2-xbM" firstAttribute="leading" secondItem="dhJ-gQ-QfS" secondAttribute="leading" id="Bl0-Fn-kdc"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="top" secondItem="dhJ-gQ-QfS" secondAttribute="top" id="HMa-Kq-Xbl"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="width" secondItem="uHZ-9A-MZ0" secondAttribute="width" id="ItP-nv-lGN"/>
+                            <constraint firstAttribute="trailing" secondItem="uEl-dj-Wxs" secondAttribute="trailing" id="QD6-9N-K15"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="height" secondItem="6HX-x2-xbM" secondAttribute="height" id="RIi-Ns-cMy"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="leading" secondItem="dhJ-gQ-QfS" secondAttribute="leading" id="XTd-kg-dPq"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="width" secondItem="6HX-x2-xbM" secondAttribute="width" id="e2c-mx-nBi"/>
+                            <constraint firstItem="RVG-lU-2EC" firstAttribute="top" secondItem="uHZ-9A-MZ0" secondAttribute="bottom" id="e7j-DQ-yYn"/>
+                            <constraint firstItem="6HX-x2-xbM" firstAttribute="top" secondItem="uEl-dj-Wxs" secondAttribute="bottom" id="pxs-u7-ccO"/>
+                            <constraint firstItem="uEl-dj-Wxs" firstAttribute="height" secondItem="uHZ-9A-MZ0" secondAttribute="height" id="ssG-cD-nsh"/>
+                            <constraint firstItem="uHZ-9A-MZ0" firstAttribute="top" secondItem="6HX-x2-xbM" secondAttribute="bottom" id="tdt-39-C6z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnFindOnTheMap" destination="PTP-wR-3Kx" id="1Eu-8b-pCt"/>
+                        <outlet property="txtLocation" destination="gqQ-cu-5l0" id="pXJ-mf-TqJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="feB-fs-Iik" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1343" y="-811"/>
+        </scene>
         <!--Map-->
         <scene sceneID="bIJ-Pa-Pua">
             <objects>
@@ -60,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fM-it-rAG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1133" y="-63"/>
+            <point key="canvasLocation" x="1345" y="-44"/>
         </scene>
         <!--Locations Table View Controller-->
         <scene sceneID="eQd-Yu-PI2">
@@ -95,7 +230,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2c-Ng-Ca4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1943" y="668"/>
+            <point key="canvasLocation" x="2155" y="687"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bw5-kQ-iym">
@@ -125,6 +260,9 @@
                                 <state key="normal" image="PinIcon">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="zL7-3Z-LJZ" kind="presentation" id="0Mk-zT-heT"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="yPx-1i-cm1">
@@ -183,7 +321,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTb-3X-nFK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1131" y="668"/>
+            <point key="canvasLocation" x="1343" y="687"/>
         </scene>
     </scenes>
     <resources>
