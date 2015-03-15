@@ -37,11 +37,9 @@ class InformationPostingViewController : UIViewController {
                 println("geocoder is successfull")
             } else {
                 //Display an alert view
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Unable to find this address"
-                alert.addButtonWithTitle("OK")
-                alert.show()
+                let alert = UIAlertController(title: "Alert", message: "Unable to find this address", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         };
     }
