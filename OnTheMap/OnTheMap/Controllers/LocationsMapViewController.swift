@@ -22,6 +22,10 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
         self.studentsLocations = studentsLocations?
         
+        //Clear old annotations
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        //Display newly received annotations
         for studentLocation in self.studentsLocations! {
             self.addMapAnnotation(studentLocation)
         }

@@ -5,7 +5,8 @@
 
 import Foundation
 
-protocol ApiFacadeDelegate {
+//@obj added so that we can downcat from AnyObject to ApiFacadeDelegate
+@objc protocol ApiFacadeDelegate {
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
 }
 

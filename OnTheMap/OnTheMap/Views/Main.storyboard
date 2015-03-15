@@ -127,7 +127,11 @@
                                 </state>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="yPx-1i-cm1"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="yPx-1i-cm1">
+                            <connections>
+                                <action selector="refreshStudentsLocations:" destination="I3X-0l-BOU" id="G1i-f6-ikU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="qm7-nc-9Az">
