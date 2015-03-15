@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class LoginViewController : UIViewController{
+class LoginViewController : UIViewController, ApiFacadeDelegate{
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -33,13 +33,24 @@ class LoginViewController : UIViewController{
     }
     
     @IBAction func login(sender: UIButton) {
-        //Display navigation bar before moving to the next view controller
-        self.navigationController?.navigationBarHidden = false
-        self.performSegueWithIdentifier("LoginCompleted", sender: self)
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let apiFacade = appDelegate.apiFacade
+        apiFacade.delegate = self
+        
+        apiFacade.loginToUdacity("vlad@spreys.com", password: "zxcvvcxz")
     }
-    
     
     @IBAction func signUp(sender: UIButton) {
         UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signin")!)
+    }
+    
+    func loginFinished(successfull: Bool, badCredentials: Bool) {
+        if(successfull) {
+            //Display navigation bar before moving to the next view controller
+            self.navigationController?.navigationBarHidden = false
+            self.performSegueWithIdentifier("LoginCompleted", sender: self)
+        } else {
+            
+        }
     }
 }

@@ -7,7 +7,8 @@ import Foundation
 
 //@obj added so that we can downcat from AnyObject to ApiFacadeDelegate
 @objc protocol ApiFacadeDelegate {
-    func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
+    optional func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
+    optional func loginFinished(successfull: Bool, badCredentials: Bool)
 }
 
 class ApiFacade : NSObject {
@@ -34,12 +35,38 @@ class ApiFacade : NSObject {
                 
                 self.studentsLocations = ApiFactory.getStudentsLocations(data)            
                 
-                self.delegate!.studentsLocationsRetrieved(self.studentsLocations)
+                self.delegate!.studentsLocationsRetrieved!(self.studentsLocations)
             }
             task.resume()
         } else {
             //Return cached value
-            self.delegate!.studentsLocationsRetrieved(self.studentsLocations)
+            self.delegate!.studentsLocationsRetrieved!(self.studentsLocations)
         }
+    }
+    
+    func loginToUdacity(username: String, password: String){
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"udacity\": {\"username\": \"account@domain.com\", \"password\": \"********\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                self.delegate!.loginFinished!(false, badCredentials: false)
+            }
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            
+            let jsonDict = NSJSONSerialization.JSONObjectWithData(newData, options: nil, error: nil)! as NSDictionary
+            
+            switch jsonDict["status"] as Double{
+                case 403:
+                    self.delegate!.loginFinished!(false, badCredentials: true)
+                default:
+                    self.delegate!.loginFinished!(false, badCredentials: false)
+            }
+        }
+        task.resume()
     }
 }

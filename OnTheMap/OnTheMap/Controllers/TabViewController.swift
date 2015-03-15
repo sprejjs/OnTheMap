@@ -33,7 +33,7 @@ class TabViewController : UITabBarController, ApiFacadeDelegate {
         
         for childViewController in childViewControllers! {
             if let apiFacadeDelegate = childViewController as? ApiFacadeDelegate {
-                apiFacadeDelegate.studentsLocationsRetrieved(studentsLocations)
+                apiFacadeDelegate.studentsLocationsRetrieved!(studentsLocations)
             }
             
             if childViewController.childViewControllers != nil {
