@@ -5,15 +5,22 @@
 
 import Foundation
 
+protocol ApiFacadeDelegate {
+    func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
+}
+
 class ApiFacade : NSObject {
 
     private var studentsLocations : [StudentLocation]?
+    var delegate : ApiFacadeDelegate?
     
     /**
      * Method retrieves Students Locations from the Prase API, deserialises them into arrya of Students Locations and returns to the calling method.
      * Unless forceRefresh is set to true, method returns pre-cached responses instead of retrieving information from the cloud every time.
+    
+     * Information returned in studentsLocationsRetrieved method of ApiFacadeDelegate
      */
-    func getStudentsLocations(forceRefresh : Bool) -> [StudentLocation]?{
+    func getStudentsLocations(forceRefresh : Bool){
         
         if studentsLocations == nil || forceRefresh {
             let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
@@ -22,25 +29,16 @@ class ApiFacade : NSObject {
             
             let session = NSURLSession.sharedSession()
             let task = session.dataTaskWithRequest(request) { data, response, error in
-                if error != nil { // Handle error...
-                    return
-                }
-                println(NSString(data: data, encoding: NSUTF8StringEncoding))
+                if error != nil { return }
                 
-                let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+                self.studentsLocations = ApiFactory.getStudentsLocations(data)            
                 
-                if jsonDict.count > 0 && jsonDict["results"]?.count > 0 {
-                    let results = jsonDict["results"] as NSArray
-                    
-                    self.studentsLocations = []
-                    for(var i = 0; i < results.count; i++){
-                        self.studentsLocations?.append(StudentLocation(dictionary: results[i] as NSDictionary))
-                    }
-                }
+                self.delegate!.studentsLocationsRetrieved(self.studentsLocations)
             }
             task.resume()
+        } else {
+            //Return cached value
+            self.delegate!.studentsLocationsRetrieved(self.studentsLocations)
         }
-        
-        return studentsLocations
     }
 }
