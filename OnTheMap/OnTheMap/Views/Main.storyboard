@@ -29,7 +29,7 @@
         <!--Map-->
         <scene sceneID="bIJ-Pa-Pua">
             <objects>
-                <viewController id="lue-WL-mYe" sceneMemberID="viewController">
+                <viewController id="lue-WL-mYe" customClass="LocationsMapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OCz-gO-cZY"/>
                         <viewControllerLayoutGuide type="bottom" id="jxs-de-tbU"/>
@@ -37,9 +37,26 @@
                     <view key="view" contentMode="scaleToFill" id="nhJ-hC-dQj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ub7-g1-15c">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="lue-WL-mYe" id="JIl-xF-QFD"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ub7-g1-15c" secondAttribute="bottom" id="8om-Hs-is3"/>
+                            <constraint firstItem="Ub7-g1-15c" firstAttribute="leading" secondItem="nhJ-hC-dQj" secondAttribute="leading" id="Jzu-JD-lka"/>
+                            <constraint firstAttribute="trailing" secondItem="Ub7-g1-15c" secondAttribute="trailing" id="RVG-AE-Fn5"/>
+                            <constraint firstItem="Ub7-g1-15c" firstAttribute="top" secondItem="nhJ-hC-dQj" secondAttribute="top" id="SUO-T1-qsY"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="W0P-xi-NXO"/>
+                    <connections>
+                        <outlet property="mapView" destination="Ub7-g1-15c" id="22B-O4-8Bs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fM-it-rAG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

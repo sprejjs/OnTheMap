@@ -4,13 +4,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 class StudentLocation : NSObject {
     private(set) var createdAt : NSDate
     private(set) var firstName : String
     private(set) var lastName : String
-    private(set) var latitude : Float
-    private(set) var longitude : Float
+    private(set) var latitude : Double
+    private(set) var longitude : Double
     private(set) var mapString : String
     private(set) var mediaUrl : NSURL
     private(set) var objectId : String
@@ -28,9 +29,9 @@ class StudentLocation : NSObject {
         //Parse URL
         self.mediaUrl = NSURL(string: dictionary["mediaURL"] as String)!
         
-        //Parse Floats
-        self.latitude = dictionary["latitude"] as Float
-        self.longitude = dictionary["longitude"] as Float
+        //Parse Doubles
+        self.latitude = dictionary["latitude"] as Double
+        self.longitude = dictionary["longitude"] as Double
         
         //Parse Dates
         let dateFormatter = NSDateFormatter()
@@ -44,6 +45,24 @@ class StudentLocation : NSObject {
     var name : String {
         get {
             return self.firstName + " " + self.lastName
+        }
+    }
+    
+    //Computed property, returns student location as CLLocationCoordinate2D struct
+    var location : CLLocationCoordinate2D {
+        get {
+            let studentInstance = self
+            return CLLocationCoordinate2D(
+                latitude: studentInstance.latitude,
+                longitude: studentInstance.longitude
+            )
+        }
+    }
+    
+    //Computed property, returns student's media url as string
+    var mediaUrlAsString : String {
+        get {
+            return self.mediaUrl.absoluteString!
         }
     }
 }
