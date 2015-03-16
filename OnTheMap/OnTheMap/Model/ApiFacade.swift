@@ -10,6 +10,7 @@ import Foundation
 @objc protocol ApiFacadeDelegate {
     optional func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
     optional func loginFinished(successfull: Bool, badCredentials: Bool)
+    optional func accountDetailsRetrieved(successfull: Bool)
 }
 
 class ApiFacade : NSObject {
@@ -88,6 +89,36 @@ class ApiFacade : NSObject {
             
             //We should never reach the statement below. Something went wrong
             self.delegate!.loginFinished!(false, badCredentials: false)
+        }
+        task.resume()
+    }
+    
+    /**
+     * Method gets account details from the Udacity API. When request is completed method will notify ApiFacade delegate through accountDetailsRetrieved method
+     */
+    func getAccountDetails(accountId: String){
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/" + accountId)!)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error...
+                self.delegate!.accountDetailsRetrieved!(false)
+                return
+            }
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            let jsonDict = NSJSONSerialization.JSONObjectWithData(newData, options: nil, error: nil)! as NSDictionary
+            
+            if let user = jsonDict["user"] as? NSDictionary {
+                let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                appDelegate.personalLocation.firstName = user["first_name"] as? String
+                appDelegate.personalLocation.lastName = user["last_name"] as? String
+                
+                //Request was successfull
+                self.delegate!.accountDetailsRetrieved!(true)
+            }
+            
+            //We should never reach the statement below. Something went wrong
+            self.delegate!.accountDetailsRetrieved!(false)
+            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }

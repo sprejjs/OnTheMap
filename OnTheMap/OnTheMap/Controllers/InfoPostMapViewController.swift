@@ -7,7 +7,7 @@ import UIKit
 import Foundation
 import MapKit
 
-class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapViewDelegate {
+class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapViewDelegate, ApiFacadeDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var txtUrl: UITextField!
@@ -36,15 +36,46 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
         self.view.endEditing(true)
         
         //Validate URL
-        if let url = NSURL(string: self.txtUrl.text) {
+        var addedUrl = self.txtUrl.text
+        
+        if isValidUrl(addedUrl) {
             //Url valid
-            println(url == nil)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.personalLocation.mediaUrl = NSURL(string: addedUrl)
+            
+            //Make the service call
+            appDelegate.apiFacade.delegate = self
+            appDelegate.apiFacade.getAccountDetails(appDelegate.personalLocation.accountId!)
         } else {
             let alert = UIAlertController(title: nil, message: "Please enter a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    func accountDetailsRetrieved(successfull: Bool) {
+        if(!successfull){
+            let alert = UIAlertController(title: nil, message: "Unable to retrieve your information from the Udacity API. Please try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            
+            //Send information to Udacity api
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    
+    /**
+     * Method is meant to validate the URL address. It checks wheter connection can be made to the supplied URL address.
+     * Method will return false either if url is not valid or connection to the URL address cannot be made (due to the network failure
+     * for example). As per the stackoverflow (http://stackoverflow.com/questions/1471201/how-to-validate-an-url-on-the-iphone) there is no
+     * perfect solution 
+     */
+    func isValidUrl(url: String) -> Bool {
+        let request = NSURLRequest(URL: NSURL(string: url)!)
+        
+        return NSURLConnection.canHandleRequest(request)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
