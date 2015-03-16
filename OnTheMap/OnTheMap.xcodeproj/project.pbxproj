@@ -23,6 +23,7 @@
 		2CBC4B2B3AB2888C1CFDEE8F /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */; };
 		2CBC4C4BBB82C847F4BAAF7D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC468E451963E8A6F41D0A /* TabViewController.swift */; };
 		2CBC4D8D81560E5601CD457A /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4E42F0DA9CE8C3E90EA0 /* LocationsTableViewController.swift */; };
+		2CBC4E00B8FB338800C21A9F /* InfoPostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4456491A4C8373B123DB /* InfoPostMapViewController.swift */; };
 		2CBC4E035AE9EF9A70ABE675 /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC41913829AABC80473E37 /* ApiFactory.swift */; };
 		2CBC4F311924F5B6092BDB82 /* ApiFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC418FB47892DF903CCC27 /* ApiFacade.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		2CBC418FB47892DF903CCC27 /* ApiFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiFacade.swift; sourceTree = "<group>"; };
 		2CBC41913829AABC80473E37 /* ApiFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
 		2CBC4404B46D5BD841006C07 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBC4456491A4C8373B123DB /* InfoPostMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostMapViewController.swift; sourceTree = "<group>"; };
 		2CBC44ACA434D278054EF5C6 /* LocationsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsMapViewController.swift; sourceTree = "<group>"; };
 		2CBC468E451963E8A6F41D0A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		2CBC46D5E20A8795B9F4BF27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				2CBC44ACA434D278054EF5C6 /* LocationsMapViewController.swift */,
 				2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */,
 				2CBC46E775D16982F39D9C88 /* LoginViewController.swift */,
+				2CBC4456491A4C8373B123DB /* InfoPostMapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				2CBC4A1D1B1DE04BF42EEC3C /* UIColor.swift in Sources */,
 				2CBC40CD560C1D491EE5C859 /* LoginViewController.swift in Sources */,
 				2CBC43F070FA015F4AD77632 /* PersonalLocation.swift in Sources */,
+				2CBC4E00B8FB338800C21A9F /* InfoPostMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

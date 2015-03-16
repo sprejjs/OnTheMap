@@ -6,8 +6,9 @@
 import UIKit
 import Foundation
 import CoreLocation
+import MapKit
 
-class InformationPostingViewController : UIViewController {
+class InformationPostingViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var btnFindOnTheMap: UIButton!
     @IBOutlet weak var txtLocation: UITextField!
     
@@ -23,9 +24,15 @@ class InformationPostingViewController : UIViewController {
         var color = UIColor.lightGrayColor()
         var attrs = [NSForegroundColorAttributeName : color]
         self.txtLocation.attributedPlaceholder = NSAttributedString(string: "Enter Details", attributes: attrs)
+        
+        //Hide navigation bar
+        self.navigationController?.navigationBarHidden = true
     }
     
     @IBAction func findOnTheMap() {
+        //Hide keyboard
+        self.view.endEditing(true)
+        
         //Try to geocode string
         var address = self.txtLocation.text
         
@@ -34,7 +41,14 @@ class InformationPostingViewController : UIViewController {
             let placemakrs = $0
             let error = $1
             if let placemarks = $0 {
-                println("geocoder is successfull")
+                
+                if let placemark = placemakrs[0] as? CLPlacemark {
+                    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                    appDelegate.personalLocation.selectedLocation = MKPlacemark(placemark: placemark)
+                    
+                    self.performSegueWithIdentifier("MoveToMap", sender: self)
+                }
+                
             } else {
                 //Display an alert view
                 let alert = UIAlertController(title: "Alert", message: "Unable to find this address", preferredStyle: UIAlertControllerStyle.Alert)
@@ -42,5 +56,12 @@ class InformationPostingViewController : UIViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         };
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if(textField == txtLocation){
+            findOnTheMap()
+        }
+        return true
     }
 }

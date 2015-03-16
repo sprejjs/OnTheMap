@@ -25,6 +25,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="zL7-3Z-LJZ" id="VrG-8c-CzD"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.53757195719999995" green="0.28258634869999999" blue="0.44413034540000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,14 +134,94 @@
                             <constraint firstItem="uHZ-9A-MZ0" firstAttribute="top" secondItem="6HX-x2-xbM" secondAttribute="bottom" id="tdt-39-C6z"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="0l8-ff-HMu"/>
                     <connections>
                         <outlet property="btnFindOnTheMap" destination="PTP-wR-3Kx" id="1Eu-8b-pCt"/>
                         <outlet property="txtLocation" destination="gqQ-cu-5l0" id="pXJ-mf-TqJ"/>
+                        <segue destination="heP-U6-KAt" kind="show" identifier="MoveToMap" id="YXh-MV-oYn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="feB-fs-Iik" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1343" y="-811"/>
+            <point key="canvasLocation" x="3086" y="-821"/>
+        </scene>
+        <!--Info Post Map View Controller-->
+        <scene sceneID="k5W-2N-GAI">
+            <objects>
+                <viewController id="heP-U6-KAt" customClass="InfoPostMapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qsY-op-Ibw"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZuF-lM-mrc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Cg-tc-6yC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7s-LM-pyp">
+                                <rect key="frame" x="0.0" y="20" width="600" height="290"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter URL" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-AG-sa8">
+                                        <rect key="frame" x="8" y="133" width="584" height="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="heP-U6-KAt" id="W0D-5v-GtY"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30980392156862746" green="0.53333333333333333" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="m5h-AG-sa8" secondAttribute="centerY" id="4hM-3k-jMc"/>
+                                    <constraint firstItem="m5h-AG-sa8" firstAttribute="leading" secondItem="F7s-LM-pyp" secondAttribute="leadingMargin" id="PeM-EU-EkX"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="m5h-AG-sa8" secondAttribute="trailing" id="rAi-V3-Ub3"/>
+                                </constraints>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QCL-ey-kep">
+                                <rect key="frame" x="0.0" y="310" width="600" height="290"/>
+                                <connections>
+                                    <outlet property="delegate" destination="heP-U6-KAt" id="pGr-29-b1J"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GaI-nh-dO2">
+                                <rect key="frame" x="228" y="521" width="145" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="145" id="hkD-Ds-FrR"/>
+                                </constraints>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="0.33725490196078434" green="0.51372549019607838" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submit" destination="heP-U6-KAt" eventType="touchUpInside" id="0ko-n5-UrF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.30980392159999998" green="0.53333333329999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="F7s-LM-pyp" firstAttribute="top" secondItem="qsY-op-Ibw" secondAttribute="bottom" id="6xK-cX-c8C"/>
+                            <constraint firstItem="QCL-ey-kep" firstAttribute="width" secondItem="F7s-LM-pyp" secondAttribute="width" id="GJQ-N7-cfd"/>
+                            <constraint firstAttribute="trailing" secondItem="F7s-LM-pyp" secondAttribute="trailing" id="Ipn-bd-8QY"/>
+                            <constraint firstItem="ZuF-lM-mrc" firstAttribute="top" secondItem="GaI-nh-dO2" secondAttribute="bottom" constant="45" id="Npq-gt-0uS"/>
+                            <constraint firstItem="QCL-ey-kep" firstAttribute="leading" secondItem="7Cg-tc-6yC" secondAttribute="leading" id="Ugc-ye-wyE"/>
+                            <constraint firstItem="ZuF-lM-mrc" firstAttribute="top" secondItem="QCL-ey-kep" secondAttribute="bottom" id="YHC-Y6-mWq"/>
+                            <constraint firstAttribute="centerX" secondItem="GaI-nh-dO2" secondAttribute="centerX" id="duR-At-kwD"/>
+                            <constraint firstItem="QCL-ey-kep" firstAttribute="height" secondItem="F7s-LM-pyp" secondAttribute="height" id="htj-Ky-bmK"/>
+                            <constraint firstItem="QCL-ey-kep" firstAttribute="top" secondItem="F7s-LM-pyp" secondAttribute="bottom" id="oJs-GM-95w"/>
+                            <constraint firstItem="F7s-LM-pyp" firstAttribute="leading" secondItem="7Cg-tc-6yC" secondAttribute="leading" id="pr6-8u-wx8"/>
+                            <constraint firstAttribute="trailing" secondItem="QCL-ey-kep" secondAttribute="trailing" id="tG8-0C-NMf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnSubmit" destination="GaI-nh-dO2" id="N90-fm-il6"/>
+                        <outlet property="mapView" destination="QCL-ey-kep" id="fgh-ds-dAO"/>
+                        <outlet property="txtUrl" destination="m5h-AG-sa8" id="jRx-mA-zvZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P9a-RO-JFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3781" y="-821"/>
         </scene>
         <!--Map-->
         <scene sceneID="bIJ-Pa-Pua">
@@ -224,7 +307,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="zL7-3Z-LJZ" kind="presentation" id="0Mk-zT-heT"/>
+                                    <segue destination="6au-2c-yo5" kind="presentation" id="0Mk-zT-heT"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -391,7 +474,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIW-rN-goi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-323" y="322"/>
+            <point key="canvasLocation" x="-169" y="322"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gir-9x-eYe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6au-2c-yo5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0oS-tA-ae6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zL7-3Z-LJZ" kind="relationship" relationship="rootViewController" id="p7o-hA-Y0O"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fI9-ZR-Rfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2274" y="-821"/>
         </scene>
     </scenes>
     <resources>

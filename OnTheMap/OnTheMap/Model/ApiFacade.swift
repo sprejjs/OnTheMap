@@ -77,7 +77,7 @@ class ApiFacade : NSObject {
             //Check if login was successfull
             if let account = jsonDict["account"] as? NSDictionary {
                 let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                appDelegate.personalLocation.accountId = account["key"] as? Int
+                appDelegate.personalLocation.accountId = account["key"] as? String
                 
                 if let session = jsonDict["session"] as? NSDictionary{
                     appDelegate.personalLocation.sessionId = session["id"] as? String
