@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rto-1S-sN9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D98g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rto-1S-sN9">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -283,6 +283,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BwW-qg-peT" id="1l6-bj-ddQ"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fS2-f7-qZJ" customClass="TextFieldWithPadding" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="16" y="299" width="568" height="40"/>
@@ -292,7 +295,10 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BwW-qg-peT" id="d0m-AS-qL1"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smy-YC-Pik">
                                 <rect key="frame" x="16" y="347" width="568" height="40"/>
@@ -303,7 +309,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="login:" destination="BwW-qg-peT" eventType="touchUpInside" id="f0d-a2-YsK"/>
+                                    <action selector="login" destination="BwW-qg-peT" eventType="touchUpInside" id="Jix-ms-VS8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vls-Ib-qdl">
@@ -312,7 +318,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUp:" destination="BwW-qg-peT" eventType="touchUpInside" id="ryq-B1-p88"/>
+                                    <action selector="signUp" destination="BwW-qg-peT" eventType="touchUpInside" id="W7s-B6-5IC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -340,6 +346,7 @@
                     <navigationItem key="navigationItem" id="1TR-Rl-Hcl"/>
                     <connections>
                         <outlet property="btnLogin" destination="Smy-YC-Pik" id="kZZ-ab-S1w"/>
+                        <outlet property="btnSignUp" destination="Vls-Ib-qdl" id="9cy-fQ-vIp"/>
                         <outlet property="txtPassword" destination="fS2-f7-qZJ" id="qnL-gJ-1hC"/>
                         <outlet property="txtUsername" destination="1IL-AT-XRR" id="qLy-MQ-RJI"/>
                         <segue destination="I3X-0l-BOU" kind="show" identifier="LoginCompleted" id="8ZL-hi-6rG"/>

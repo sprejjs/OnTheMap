@@ -14,6 +14,7 @@
 		2CBC405E146E2DDBDA56FBAF /* LocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC44ACA434D278054EF5C6 /* LocationsMapViewController.swift */; };
 		2CBC40CD560C1D491EE5C859 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC46E775D16982F39D9C88 /* LoginViewController.swift */; };
 		2CBC43990A2F6A82593A7F77 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */; };
+		2CBC43F070FA015F4AD77632 /* PersonalLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC479C3ED2AF64A33781DE /* PersonalLocation.swift */; };
 		2CBC440C34CA0C42FF6B0D8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CBC46D5E20A8795B9F4BF27 /* Images.xcassets */; };
 		2CBC44634C451C98ACECCCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC4D3AB48941F280B1EFE4 /* AppDelegate.swift */; };
 		2CBC4532AFD0E23C6EC371A7 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC498FD788DB42A8665247 /* UIImage.swift */; };
@@ -51,6 +52,7 @@
 		2CBC46E775D16982F39D9C88 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CBC470B7AE355E7F5BFE6E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		2CBC476F1429BF05B4AAA4A5 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		2CBC479C3ED2AF64A33781DE /* PersonalLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalLocation.swift; sourceTree = "<group>"; };
 		2CBC498FD788DB42A8665247 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2CBC49E2518A63E78C8ADB61 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				2CBC418FB47892DF903CCC27 /* ApiFacade.swift */,
 				2CBC49FEC8E4F980AD885EFA /* StudentLocation.swift */,
 				2CBC41913829AABC80473E37 /* ApiFactory.swift */,
+				2CBC479C3ED2AF64A33781DE /* PersonalLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				2CBC4532AFD0E23C6EC371A7 /* UIImage.swift in Sources */,
 				2CBC4A1D1B1DE04BF42EEC3C /* UIColor.swift in Sources */,
 				2CBC40CD560C1D491EE5C859 /* LoginViewController.swift in Sources */,
+				2CBC43F070FA015F4AD77632 /* PersonalLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
