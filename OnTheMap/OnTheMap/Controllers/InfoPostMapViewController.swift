@@ -35,6 +35,9 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
         //Hide the keyboard
         self.view.endEditing(true)
         
+        //Disable button
+        self.btnSubmit.enabled = false
+        
         //Validate URL
         var addedUrl = self.txtUrl.text
         
@@ -54,15 +57,19 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
     }
     
     func accountDetailsRetrieved(successfull: Bool) {
+        self.btnSubmit.enabled = true
         if(!successfull){
             let alert = UIAlertController(title: nil, message: "Unable to retrieve your information from the Udacity API. Please try again later.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        } else {
-            
-            //Send information to Udacity api
-            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {            
+            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.apiFacade.delegate = self
+            appDelegate.apiFacade.submitPersonalLocation(appDelegate.personalLocation)
         }
+    }
+    
+    func userLocationSubmitted(successfull: Bool) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     

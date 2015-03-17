@@ -45,6 +45,7 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
                 if let placemark = placemakrs[0] as? CLPlacemark {
                     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
                     appDelegate.personalLocation.selectedLocation = MKPlacemark(placemark: placemark)
+                    appDelegate.personalLocation.mapString = address
                     
                     self.performSegueWithIdentifier("MoveToMap", sender: self)
                 }

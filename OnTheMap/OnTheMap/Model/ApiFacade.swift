@@ -11,6 +11,7 @@ import Foundation
     optional func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
     optional func loginFinished(successfull: Bool, badCredentials: Bool)
     optional func accountDetailsRetrieved(successfull: Bool)
+    optional func userLocationSubmitted(successfull: Bool)
 }
 
 class ApiFacade : NSObject {
@@ -118,7 +119,37 @@ class ApiFacade : NSObject {
             
             //We should never reach the statement below. Something went wrong
             self.delegate!.accountDetailsRetrieved!(false)
-            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
+    }
+    
+    func submitPersonalLocation(personalLocation: PersonalLocation){
+        var requestString = "{\"uniqueKey\": \"" + personalLocation.accountId! + "\", \"firstName\": \"" + personalLocation.firstName! + "\", \"lastName\": \"" + personalLocation.lastName! + "\",\"mapString\": \"" + personalLocation.mapString! + "\"";
+        
+        requestString += ", \"mediaURL\": \"" + personalLocation.mediaUrl!.absoluteString! + "\",\"latitude\": \(personalLocation.latitude), \"longitude\": \(personalLocation.longitude)}";
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+        request.HTTPMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = requestString.dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                self.delegate!.userLocationSubmitted!(false)
+                return
+            }
+            
+            println("data")
+            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)! as NSDictionary
+            
+            if let user = jsonDict["createdAt"] as? String {
+                //Request successfull
+                self.delegate!.userLocationSubmitted!(true)
+            }
+            
+            self.delegate!.userLocationSubmitted!(false)
         }
         task.resume()
     }
