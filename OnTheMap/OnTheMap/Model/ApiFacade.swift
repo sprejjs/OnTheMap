@@ -34,7 +34,11 @@ class ApiFacade : NSObject {
             
             let session = NSURLSession.sharedSession()
             let task = session.dataTaskWithRequest(request) { data, response, error in
-                if error != nil { return }
+                if error != nil {
+                    //Send nil to the delegate, so that it can be handled appropriately.
+                    self.delegate!.studentsLocationsRetrieved!(nil)
+                    return
+                }
                 
                 self.studentsLocations = ApiFactory.getStudentsLocations(data)            
                 

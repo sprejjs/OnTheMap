@@ -22,6 +22,12 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
     
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
         self.studentsLocations = studentsLocations?
+
+        if(studentsLocations == nil) {
+            let alert = UIAlertController(title: nil, message: "Unable to retrieve student's locations. Please try again later",
+                    preferredStyle: UIAlertControllerStyle.Alert)
+            presentViewController(alert, animated: true, completion: nil);
+        }
         
         //Needs to be called on the main thread, to ensure the view is updated
         dispatch_async(dispatch_get_main_queue(), {

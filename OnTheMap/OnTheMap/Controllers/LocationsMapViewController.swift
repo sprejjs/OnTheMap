@@ -21,6 +21,13 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
         self.studentsLocations = studentsLocations?
+
+        //Show an error message if no locations returned
+        if(studentsLocations == nil){
+            let alert = UIAlertController(title: nil, message: "Unable to retrieve student's locations. Please try again later",
+                    preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        }
         
         //Clear old annotations
         self.mapView.removeAnnotations(self.mapView.annotations)
