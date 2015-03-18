@@ -35,9 +35,15 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
         
         //Try to geocode string
         var address = self.txtLocation.text
-        
+
+        //Display activity indicator
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+
         var geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) {
+            //Hide activity indicator
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+
             let placemakrs = $0
             let error = $1
             if let placemarks = $0 {
