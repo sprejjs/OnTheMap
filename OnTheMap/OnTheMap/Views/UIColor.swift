@@ -16,15 +16,12 @@ extension UIColor {
 
         if let hexString = hexString {
 
-            var error : NSError? = nil
-
-            let regexp = NSRegularExpression(pattern: "\\A#[0-9a-f]{6}\\z",
-                    options: .CaseInsensitive,
-                    error: &error)!
+            let regexp = try! NSRegularExpression(pattern: "\\A#[0-9a-f]{6}\\z",
+                    options: .CaseInsensitive)
 
             let count = regexp.numberOfMatchesInString(hexString,
                     options: .ReportProgress,
-                    range: NSMakeRange(0, countElements(hexString)))
+                    range: NSMakeRange(0, hexString.characters.count))
 
             if count != 1 {
 

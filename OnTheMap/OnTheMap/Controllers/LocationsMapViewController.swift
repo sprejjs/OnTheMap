@@ -12,7 +12,7 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     var studentsLocations: [StudentLocation]?
     
     override func viewWillAppear(animated: Bool) {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
@@ -20,7 +20,7 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     }
     
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
-        self.studentsLocations = studentsLocations?
+        self.studentsLocations = studentsLocations
 
         //Show an error message if no locations returned
         if(studentsLocations == nil){
@@ -41,29 +41,29 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     func addMapAnnotation(studentLocation: StudentLocation){
         
         let annotation = MKPointAnnotation()
-        annotation.setCoordinate(studentLocation.location)
+        annotation.coordinate = studentLocation.location
         annotation.title = studentLocation.name
         annotation.subtitle = studentLocation.mediaUrlAsString
         mapView.addAnnotation(annotation)
     }
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        let url = NSURL(string: view.annotation!.subtitle!)!
+        let url = NSURL(string: view.annotation!.subtitle!!)!
 
         UIApplication.sharedApplication().openURL(url)
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("PinAnnotationView")
 
         if (pinView == nil)
         {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinAnnotationView")
-            pinView.canShowCallout = true;
-            pinView.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+            pinView!.canShowCallout = true;
+            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)// UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
         } else {
-            pinView.annotation = annotation;
+            pinView!.annotation = annotation;
         }
         return pinView;
     }

@@ -40,7 +40,7 @@ class ApiFacade : NSObject {
                     return
                 }
                 
-                self.studentsLocations = ApiFactory.getStudentsLocations(data)            
+                self.studentsLocations = ApiFactory.getStudentsLocations(data!)
                 
                 self.delegate!.studentsLocationsRetrieved!(self.studentsLocations)
             }
@@ -57,7 +57,7 @@ class ApiFacade : NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        var httpBodyAsString = "{\"udacity\": {\"username\": \"" + username + "\", \"password\": \"" + password + "\"}}"
+        let httpBodyAsString = "{\"udacity\": {\"username\": \"" + username + "\", \"password\": \"" + password + "\"}}"
         
         request.HTTPBody = httpBodyAsString.dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
@@ -65,9 +65,9 @@ class ApiFacade : NSObject {
             if error != nil {
                 self.delegate!.loginFinished!(false, badCredentials: false)
             }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
             
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(newData, options: nil, error: nil)! as NSDictionary
+            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
             
             //Check status for error
             if let status = jsonDict["status"] as? Double {
@@ -82,7 +82,7 @@ class ApiFacade : NSObject {
             
             //Check if login was successfull
             if let account = jsonDict["account"] as? NSDictionary {
-                let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.personalLocation.accountId = account["key"] as? String
                 
                 if let session = jsonDict["session"] as? NSDictionary{
@@ -109,16 +109,17 @@ class ApiFacade : NSObject {
                 self.delegate!.accountDetailsRetrieved!(false)
                 return
             }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(newData, options: nil, error: nil)! as NSDictionary
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
             
             if let user = jsonDict["user"] as? NSDictionary {
-                let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.personalLocation.firstName = user["first_name"] as? String
                 appDelegate.personalLocation.lastName = user["last_name"] as? String
                 
                 //Request was successfull
                 self.delegate!.accountDetailsRetrieved!(true)
+                return
             }
             
             //We should never reach the statement below. Something went wrong
@@ -128,9 +129,10 @@ class ApiFacade : NSObject {
     }
     
     func submitPersonalLocation(personalLocation: PersonalLocation){
-        var requestString = "{\"uniqueKey\": \"" + personalLocation.accountId! + "\", \"firstName\": \"" + personalLocation.firstName! + "\", \"lastName\": \"" + personalLocation.lastName! + "\",\"mapString\": \"" + personalLocation.mapString! + "\"";
+        var requestString = "{\"uniqueKey\": \"" + personalLocation.accountId! + "\", \"firstName\": \"" + personalLocation.firstName! + "\", \"lastName\": \""
         
-        requestString += ", \"mediaURL\": \"" + personalLocation.mediaUrl!.absoluteString! + "\",\"latitude\": \(personalLocation.latitude), \"longitude\": \(personalLocation.longitude)}";
+        requestString += personalLocation.lastName! + "\",\"mapString\": \"" + personalLocation.mapString! + "\""
+        requestString += ", \"mediaURL\": \"" + personalLocation.mediaUrl!.absoluteString + "\",\"latitude\": \(personalLocation.latitude), \"longitude\": \(personalLocation.longitude)}"
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
         request.HTTPMethod = "POST"
@@ -145,15 +147,15 @@ class ApiFacade : NSObject {
                 return
             }
             
-            println("data")
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)! as NSDictionary
+            print("data")
+            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
             
-            if let user = jsonDict["createdAt"] as? String {
+            if jsonDict["createdAt"] != nil {
                 //Request successfull
                 self.delegate!.userLocationSubmitted!(true)
+            } else {
+                self.delegate!.userLocationSubmitted!(false)
             }
-            
-            self.delegate!.userLocationSubmitted!(false)
         }
         task.resume()
     }

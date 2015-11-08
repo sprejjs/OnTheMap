@@ -14,13 +14,13 @@ class ApiFactory {
     class func getStudentsLocations(data: NSData) -> [StudentLocation]{
         var studentsLocations = [] as [StudentLocation]
         
-        let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+        let jsonDict = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
         
         if jsonDict.count > 0 && jsonDict["results"]?.count > 0 {
-            let results = jsonDict["results"] as NSArray
+            let results = jsonDict["results"] as! NSArray
             
             for(var i = 0; i < results.count; i++){
-                studentsLocations.append(StudentLocation(dictionary: results[i] as NSDictionary))
+                studentsLocations.append(StudentLocation(dictionary: results[i] as! NSDictionary))
             }
         }
         

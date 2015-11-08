@@ -14,7 +14,7 @@ class TabViewController : UITabBarController, ApiFacadeDelegate {
     }
 
     @IBAction func refreshStudentsLocations(sender: UIBarButtonItem) {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         

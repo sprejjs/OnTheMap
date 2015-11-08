@@ -16,7 +16,7 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        var attrs = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+        let attrs = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
         self.txtUrl.attributedPlaceholder = NSAttributedString(string: "Enter URL", attributes: attrs)
         self.btnSubmit.layer.cornerRadius = 5
         self.btnSubmit.clipsToBounds = true
@@ -25,8 +25,8 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
     override func viewWillAppear(animated: Bool){
         super.viewWillAppear(animated)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        self.mapView.addAnnotation(appDelegate.personalLocation.selectedLocation)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.mapView.addAnnotation(appDelegate.personalLocation.selectedLocation!)
         self.mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
@@ -39,12 +39,12 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
         self.btnSubmit.enabled = false
         
         //Validate URL
-        var addedUrl = self.txtUrl.text
+        let addedUrl = self.txtUrl.text
         
-        if isValidUrl(addedUrl) {
+        if isValidUrl(addedUrl!) {
             //Url valid
-            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            appDelegate.personalLocation.mediaUrl = NSURL(string: addedUrl)
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.personalLocation.mediaUrl = NSURL(string: addedUrl!)
             
             //Make the service call
             appDelegate.apiFacade.delegate = self
@@ -62,7 +62,7 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
             let alert = UIAlertController(title: nil, message: "Unable to retrieve your information from the Udacity API. Please try again later.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         } else {            
-            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.apiFacade.delegate = self
             appDelegate.apiFacade.submitPersonalLocation(appDelegate.personalLocation)
         }

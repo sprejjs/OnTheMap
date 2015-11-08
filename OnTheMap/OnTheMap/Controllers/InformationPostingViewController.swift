@@ -21,8 +21,8 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
         self.btnFindOnTheMap.clipsToBounds = true
         
         //Customise the text field placeholder
-        var color = UIColor.lightGrayColor()
-        var attrs = [NSForegroundColorAttributeName : color]
+        let color = UIColor.lightGrayColor()
+        let attrs = [NSForegroundColorAttributeName : color]
         self.txtLocation.attributedPlaceholder = NSAttributedString(string: "Enter Details", attributes: attrs)
         
         //Hide navigation bar
@@ -34,28 +34,24 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         
         //Try to geocode string
-        var address = self.txtLocation.text
+        let address = self.txtLocation.text
 
         //Display activity indicator
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address!) {
+            (placemarks, error) -> Void in
+            
             //Hide activity indicator
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
-            let placemakrs = $0
-            let error = $1
-            if let placemarks = $0 {
+            
+            if let firstPlacemark = placemarks?[0] {
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.personalLocation.selectedLocation = MKPlacemark(placemark: firstPlacemark)
+                appDelegate.personalLocation.mapString = address
                 
-                if let placemark = placemakrs[0] as? CLPlacemark {
-                    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                    appDelegate.personalLocation.selectedLocation = MKPlacemark(placemark: placemark)
-                    appDelegate.personalLocation.mapString = address
-                    
-                    self.performSegueWithIdentifier("MoveToMap", sender: self)
-                }
-                
+                self.performSegueWithIdentifier("MoveToMap", sender: self)
             } else {
                 //Display an alert view
                 let alert = UIAlertController(title: "Alert", message: "Unable to find this address", preferredStyle: UIAlertControllerStyle.Alert)

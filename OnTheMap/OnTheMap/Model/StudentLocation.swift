@@ -13,32 +13,32 @@ class StudentLocation : NSObject {
     private(set) var latitude : Double
     private(set) var longitude : Double
     private(set) var mapString : String
-    private(set) var mediaUrl : NSURL
+    private(set) var mediaUrl : NSURL?
     private(set) var objectId : String
     private(set) var uniqueKey : String
     private(set) var updatedAt : NSDate
 
     init(dictionary: NSDictionary){
         //Parse Strings
-        self.firstName = dictionary["firstName"] as String
-        self.lastName = dictionary["lastName"] as String
-        self.objectId = dictionary["objectId"] as String
-        self.uniqueKey = dictionary["uniqueKey"] as String
-        self.mapString = dictionary["mapString"] as String
+        self.firstName = dictionary["firstName"] as! String
+        self.lastName = dictionary["lastName"] as! String
+        self.objectId = dictionary["objectId"] as! String
+        self.uniqueKey = dictionary["uniqueKey"] as! String
+        self.mapString = dictionary["mapString"] as! String
         
         //Parse URL
-        self.mediaUrl = NSURL(string: dictionary["mediaURL"] as String)!
+        self.mediaUrl = NSURL(string: dictionary["mediaURL"] as! String)
         
         //Parse Doubles
-        self.latitude = dictionary["latitude"] as Double
-        self.longitude = dictionary["longitude"] as Double
+        self.latitude = dictionary["latitude"] as! Double
+        self.longitude = dictionary["longitude"] as! Double
         
         //Parse Dates
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
-        self.createdAt = dateFormatter.dateFromString(dictionary["createdAt"] as String)!
-        self.updatedAt = dateFormatter.dateFromString(dictionary["updatedAt"] as String)!
+        self.createdAt = dateFormatter.dateFromString(dictionary["createdAt"] as! String)!
+        self.updatedAt = dateFormatter.dateFromString(dictionary["updatedAt"] as! String)!
     }
     
     //Computed property returns first and last name combined
@@ -62,7 +62,11 @@ class StudentLocation : NSObject {
     //Computed property, returns student's media url as string
     var mediaUrlAsString : String {
         get {
-            return self.mediaUrl.absoluteString!
+            if mediaUrl != nil {
+                return mediaUrl!.absoluteString
+            } else {
+                return ""
+            }
         }
     }
 }

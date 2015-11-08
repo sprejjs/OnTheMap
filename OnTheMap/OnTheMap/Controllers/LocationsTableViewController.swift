@@ -13,7 +13,7 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
@@ -21,7 +21,7 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
     }
     
     func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
-        self.studentsLocations = studentsLocations?
+        self.studentsLocations = studentsLocations
 
         if(studentsLocations == nil) {
             let alert = UIAlertController(title: nil, message: "Unable to retrieve student's locations. Please try again later",
@@ -37,8 +37,8 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let studentsLocations = self.studentsLocations? {
-            return studentsLocations.count
+        if studentsLocations != nil {
+            return studentsLocations!.count
         } else {
             return 0
         }
@@ -48,7 +48,7 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("NameCell", forIndexPath: indexPath) as UITableViewCell
         
-        var studentLocation = self.studentsLocations![indexPath.item] as StudentLocation
+        let studentLocation = self.studentsLocations![indexPath.item] as StudentLocation
         
         cell.textLabel?.text = studentLocation.name
         cell.imageView?.image = UIImage(named: "PinIcon")

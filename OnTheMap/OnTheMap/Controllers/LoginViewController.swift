@@ -21,7 +21,7 @@ class LoginViewController : UIViewController, ApiFacadeDelegate, UITextFieldDele
         self.btnLogin.clipsToBounds = true
         
         //Customize text view placeholders
-        var attrs = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        let attrs = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         self.txtUsername.attributedPlaceholder = NSAttributedString(string: "Email", attributes: attrs)
         self.txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: attrs)
     }
@@ -34,11 +34,11 @@ class LoginViewController : UIViewController, ApiFacadeDelegate, UITextFieldDele
     }
     
     @IBAction func login() {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
-        apiFacade.loginToUdacity(self.txtUsername.text, password: self.txtPassword.text)
+        apiFacade.loginToUdacity(self.txtUsername.text!, password: self.txtPassword.text!)
         
         //show network activity indicator
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
