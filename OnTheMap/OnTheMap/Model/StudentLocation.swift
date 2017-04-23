@@ -7,16 +7,15 @@ import Foundation
 import CoreLocation
 
 class StudentLocation : NSObject {
-    private(set) var createdAt : NSDate
-    private(set) var firstName : String
-    private(set) var lastName : String
-    private(set) var latitude : Double
-    private(set) var longitude : Double
-    private(set) var mapString : String
-    private(set) var mediaUrl : NSURL?
-    private(set) var objectId : String
-    private(set) var uniqueKey : String
-    private(set) var updatedAt : NSDate
+    fileprivate(set) var createdAt : Date
+    fileprivate(set) var firstName : String
+    fileprivate(set) var lastName : String
+    fileprivate(set) var latitude : Double
+    fileprivate(set) var longitude : Double
+    fileprivate(set) var mediaUrl : URL?
+    fileprivate(set) var objectId : String
+    fileprivate(set) var uniqueKey : String
+    fileprivate(set) var updatedAt : Date
 
     init(dictionary: NSDictionary){
         //Parse Strings
@@ -24,21 +23,20 @@ class StudentLocation : NSObject {
         self.lastName = dictionary["lastName"] as! String
         self.objectId = dictionary["objectId"] as! String
         self.uniqueKey = dictionary["uniqueKey"] as! String
-        self.mapString = dictionary["mapString"] as! String
         
         //Parse URL
-        self.mediaUrl = NSURL(string: dictionary["mediaURL"] as! String)
+        self.mediaUrl = URL(string: dictionary["mediaURL"] as! String)
         
         //Parse Doubles
         self.latitude = dictionary["latitude"] as! Double
         self.longitude = dictionary["longitude"] as! Double
         
         //Parse Dates
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
-        self.createdAt = dateFormatter.dateFromString(dictionary["createdAt"] as! String)!
-        self.updatedAt = dateFormatter.dateFromString(dictionary["updatedAt"] as! String)!
+        self.createdAt = dateFormatter.date(from: dictionary["createdAt"] as! String)!
+        self.updatedAt = dateFormatter.date(from: dictionary["updatedAt"] as! String)!
     }
     
     //Computed property returns first and last name combined

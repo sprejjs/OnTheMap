@@ -13,7 +13,7 @@ class PersonalLocation : NSObject {
     var accountId : String?
     var firstName : String?
     var lastName : String?
-    var mediaUrl : NSURL?
+    var mediaUrl : URL?
     var mapString : String?
     
     //computed property. Retuns latitude from the location selected by the user

@@ -8,15 +8,15 @@ import Foundation
 
 //@obj added so that we can downcat from AnyObject to ApiFacadeDelegate
 @objc protocol ApiFacadeDelegate {
-    optional func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?)
-    optional func loginFinished(successfull: Bool, badCredentials: Bool)
-    optional func accountDetailsRetrieved(successfull: Bool)
-    optional func userLocationSubmitted(successfull: Bool)
+    @objc optional func studentsLocationsRetrieved(_ studentsLocations: [StudentLocation]?)
+    @objc optional func loginFinished(_ successfull: Bool, badCredentials: Bool)
+    @objc optional func accountDetailsRetrieved(_ successfull: Bool)
+    @objc optional func userLocationSubmitted(_ successfull: Bool)
 }
 
 class ApiFacade : NSObject {
 
-    private var studentsLocations : [StudentLocation]?
+    fileprivate var studentsLocations : [StudentLocation]?
     var delegate : ApiFacadeDelegate?
     
     /**
@@ -25,15 +25,15 @@ class ApiFacade : NSObject {
     
      * Information returned in studentsLocationsRetrieved method of ApiFacadeDelegate
      */
-    func getStudentsLocations(forceRefresh : Bool){
+    func getStudentsLocations(_ forceRefresh : Bool){
         
         if studentsLocations == nil || forceRefresh {
-            let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+            let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
             request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
             request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
             
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithRequest(request) { data, response, error in
+            let session = URLSession.shared
+            let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
                 if error != nil {
                     //Send nil to the delegate, so that it can be handled appropriately.
                     self.delegate!.studentsLocationsRetrieved!(nil)
@@ -43,7 +43,7 @@ class ApiFacade : NSObject {
                 self.studentsLocations = ApiFactory.getStudentsLocations(data!)
                 
                 self.delegate!.studentsLocationsRetrieved!(self.studentsLocations)
-            }
+            }) 
             task.resume()
         } else {
             //Return cached value
@@ -51,23 +51,23 @@ class ApiFacade : NSObject {
         }
     }
     
-    func loginToUdacity(username: String, password: String){
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "POST"
+    func loginToUdacity(_ username: String, password: String){
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
+        request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let httpBodyAsString = "{\"udacity\": {\"username\": \"" + username + "\", \"password\": \"" + password + "\"}}"
         
-        request.HTTPBody = httpBodyAsString.dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+        request.httpBody = httpBodyAsString.data(using: String.Encoding.utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             if error != nil {
                 self.delegate!.loginFinished!(false, badCredentials: false)
             }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            let newData = data!.subdata(in: Range(5..<data!.count))
             
-            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
+            let jsonDict = try! JSONSerialization.jsonObject(with: newData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
             
             //Check status for error
             if let status = jsonDict["status"] as? Double {
@@ -82,7 +82,7 @@ class ApiFacade : NSObject {
             
             //Check if login was successfull
             if let account = jsonDict["account"] as? NSDictionary {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.personalLocation.accountId = account["key"] as? String
                 
                 if let session = jsonDict["session"] as? NSDictionary{
@@ -94,26 +94,26 @@ class ApiFacade : NSObject {
             
             //We should never reach the statement below. Something went wrong
             self.delegate!.loginFinished!(false, badCredentials: false)
-        }
+        }) 
         task.resume()
     }
     
     /**
      * Method gets account details from the Udacity API. When request is completed method will notify ApiFacade delegate through accountDetailsRetrieved method
      */
-    func getAccountDetails(accountId: String){
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/" + accountId)!)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+    func getAccountDetails(_ accountId: String){
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/" + accountId)!)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             if error != nil { // Handle error...
                 self.delegate!.accountDetailsRetrieved!(false)
                 return
             }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
+            let newData = data!.subdata(in: Range(5..<data!.count)) /* subset response data! */
+            let jsonDict = try! JSONSerialization.jsonObject(with: newData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
             
             if let user = jsonDict["user"] as? NSDictionary {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.personalLocation.firstName = user["first_name"] as? String
                 appDelegate.personalLocation.lastName = user["last_name"] as? String
                 
@@ -124,31 +124,31 @@ class ApiFacade : NSObject {
             
             //We should never reach the statement below. Something went wrong
             self.delegate!.accountDetailsRetrieved!(false)
-        }
+        }) 
         task.resume()
     }
     
-    func submitPersonalLocation(personalLocation: PersonalLocation){
+    func submitPersonalLocation(_ personalLocation: PersonalLocation){
         var requestString = "{\"uniqueKey\": \"" + personalLocation.accountId! + "\", \"firstName\": \"" + personalLocation.firstName! + "\", \"lastName\": \""
         
         requestString += personalLocation.lastName! + "\",\"mapString\": \"" + personalLocation.mapString! + "\""
         requestString += ", \"mediaURL\": \"" + personalLocation.mediaUrl!.absoluteString + "\",\"latitude\": \(personalLocation.latitude), \"longitude\": \(personalLocation.longitude)}"
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        request.HTTPMethod = "POST"
+        let request = NSMutableURLRequest(url: URL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+        request.httpMethod = "POST"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = requestString.dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+        request.httpBody = requestString.data(using: String.Encoding.utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             if error != nil {
                 self.delegate!.userLocationSubmitted!(false)
                 return
             }
             
             print("data")
-            let jsonDict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
+            let jsonDict = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
             
             if jsonDict["createdAt"] != nil {
                 //Request successfull
@@ -156,7 +156,7 @@ class ApiFacade : NSObject {
             } else {
                 self.delegate!.userLocationSubmitted!(false)
             }
-        }
+        }) 
         task.resume()
     }
 }

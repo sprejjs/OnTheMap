@@ -16,32 +16,32 @@ class LoginViewController : UIViewController, ApiFacadeDelegate, UITextFieldDele
         super.viewDidLoad()
         
         //Customize login button
-        self.btnLogin.setBackgroundImage(UIImage.imageWithColor(UIColor.colorWithHex("#f45500")), forState: .Normal)
+        self.btnLogin.setBackgroundImage(UIImage.imageWithColor(UIColor.colorWithHex("#f45500")), for: UIControlState())
         self.btnLogin.layer.cornerRadius = 5
         self.btnLogin.clipsToBounds = true
         
         //Customize text view placeholders
-        let attrs = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        let attrs = [NSForegroundColorAttributeName : UIColor.white]
         self.txtUsername.attributedPlaceholder = NSAttributedString(string: "Email", attributes: attrs)
         self.txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: attrs)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         //Temporary hide navigation bar
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func login() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
         apiFacade.loginToUdacity(self.txtUsername.text!, password: self.txtPassword.text!)
         
         //show network activity indicator
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         disableButtons()
         
         //Hide keyboard
@@ -49,21 +49,21 @@ class LoginViewController : UIViewController, ApiFacadeDelegate, UITextFieldDele
     }
     
     @IBAction func signUp() {
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signin")!)
+        UIApplication.shared.openURL(URL(string: "https://www.udacity.com/account/auth#!/signin")!)
     }
     
-    func loginFinished(successfull: Bool, badCredentials: Bool) {
+    func loginFinished(_ successfull: Bool, badCredentials: Bool) {
         //Hide network activity indicator
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         enableButtons()
         
         if(successfull) {
             
             //Has to be executed on the main thread to prevent crashing
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 //Display navigation bar before moving to the next view controller
-                self.navigationController?.navigationBarHidden = false
-                self.performSegueWithIdentifier("LoginCompleted", sender: self)
+                self.navigationController?.isNavigationBarHidden = false
+                self.performSegue(withIdentifier: "LoginCompleted", sender: self)
             });
             
         } else {
@@ -76,23 +76,23 @@ class LoginViewController : UIViewController, ApiFacadeDelegate, UITextFieldDele
                 message = "Unable to connect to service"
             }
             
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     func disableButtons(){
-        self.btnLogin.enabled = false
-        self.btnSignUp.enabled = false
+        self.btnLogin.isEnabled = false
+        self.btnSignUp.isEnabled = false
     }
     
     func enableButtons(){
-        self.btnLogin.enabled = true
-        self.btnSignUp.enabled = true
+        self.btnLogin.isEnabled = true
+        self.btnSignUp.isEnabled = true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField == self.txtUsername){//Move to password field
             self.txtPassword.becomeFirstResponder()
         }

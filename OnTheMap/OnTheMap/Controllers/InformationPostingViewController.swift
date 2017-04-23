@@ -16,17 +16,17 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         //Customise the find button
-        self.btnFindOnTheMap.setBackgroundImage(UIImage.imageWithColor(UIColor.colorWithHex("#FFFFFF")), forState: .Normal)
+        self.btnFindOnTheMap.setBackgroundImage(UIImage.imageWithColor(UIColor.colorWithHex("#FFFFFF")), for: UIControlState())
         self.btnFindOnTheMap.layer.cornerRadius = 10
         self.btnFindOnTheMap.clipsToBounds = true
         
         //Customise the text field placeholder
-        let color = UIColor.lightGrayColor()
+        let color = UIColor.lightGray
         let attrs = [NSForegroundColorAttributeName : color]
         self.txtLocation.attributedPlaceholder = NSAttributedString(string: "Enter Details", attributes: attrs)
         
         //Hide navigation bar
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func findOnTheMap() {
@@ -37,31 +37,31 @@ class InformationPostingViewController : UIViewController, UITextFieldDelegate {
         let address = self.txtLocation.text
 
         //Display activity indicator
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address!) {
             (placemarks, error) -> Void in
             
             //Hide activity indicator
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             if let firstPlacemark = placemarks?[0] {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.personalLocation.selectedLocation = MKPlacemark(placemark: firstPlacemark)
                 appDelegate.personalLocation.mapString = address
                 
-                self.performSegueWithIdentifier("MoveToMap", sender: self)
+                self.performSegue(withIdentifier: "MoveToMap", sender: self)
             } else {
                 //Display an alert view
-                let alert = UIAlertController(title: "Alert", message: "Unable to find this address", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Alert", message: "Unable to find this address", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         };
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField == txtLocation){
             findOnTheMap()
         }

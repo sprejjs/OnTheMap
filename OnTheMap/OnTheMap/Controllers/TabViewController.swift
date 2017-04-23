@@ -13,15 +13,15 @@ class TabViewController : UITabBarController, ApiFacadeDelegate {
         self.title = "On The Map"
     }
 
-    @IBAction func refreshStudentsLocations(sender: UIBarButtonItem) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    @IBAction func refreshStudentsLocations(_ sender: UIBarButtonItem) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
         apiFacade.getStudentsLocations(true)
     }
     
-    func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
+    func studentsLocationsRetrieved(_ studentsLocations: [StudentLocation]?) {
         self.updateChildViewControllers(studentsLocations!, childViewControllers: self.childViewControllers)
     }
     
@@ -29,7 +29,7 @@ class TabViewController : UITabBarController, ApiFacadeDelegate {
     * Method recursively goes through all of the child view controllers and updates their students locations if they confront to ApiFacadeDelegate
     * protocol
     */
-    func updateChildViewControllers(studentsLocations: [StudentLocation], childViewControllers: [AnyObject]?){
+    func updateChildViewControllers(_ studentsLocations: [StudentLocation], childViewControllers: [AnyObject]?){
         
         for childViewController in childViewControllers! {
             if let apiFacadeDelegate = childViewController as? ApiFacadeDelegate {

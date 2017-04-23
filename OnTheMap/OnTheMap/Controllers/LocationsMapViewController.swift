@@ -11,22 +11,22 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
     @IBOutlet weak var mapView: MKMapView!
     var studentsLocations: [StudentLocation]?
     
-    override func viewWillAppear(animated: Bool) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    override func viewWillAppear(_ animated: Bool) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
         apiFacade.getStudentsLocations(false)
     }
     
-    func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
+    func studentsLocationsRetrieved(_ studentsLocations: [StudentLocation]?) {
         self.studentsLocations = studentsLocations
 
         //Show an error message if no locations returned
         if(studentsLocations == nil){
             let alert = UIAlertController(title: nil, message: "Unable to retrieve student's locations. Please try again later",
-                    preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         }
         
         //Clear old annotations
@@ -38,7 +38,7 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
         }
     }
     
-    func addMapAnnotation(studentLocation: StudentLocation){
+    func addMapAnnotation(_ studentLocation: StudentLocation){
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = studentLocation.location
@@ -47,21 +47,21 @@ class LocationsMapViewController : UIViewController, MKMapViewDelegate, ApiFacad
         mapView.addAnnotation(annotation)
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        let url = NSURL(string: view.annotation!.subtitle!!)!
+        let url = URL(string: view.annotation!.subtitle!!)!
 
-        UIApplication.sharedApplication().openURL(url)
+        UIApplication.shared.openURL(url)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("PinAnnotationView")
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "PinAnnotationView")
 
         if (pinView == nil)
         {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinAnnotationView")
             pinView!.canShowCallout = true;
-            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)// UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)// UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
         } else {
             pinView!.annotation = annotation;
         }

@@ -16,16 +16,16 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        let attrs = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+        let attrs = [NSForegroundColorAttributeName : UIColor.lightGray]
         self.txtUrl.attributedPlaceholder = NSAttributedString(string: "Enter URL", attributes: attrs)
         self.btnSubmit.layer.cornerRadius = 5
         self.btnSubmit.clipsToBounds = true
     }
     
-    override func viewWillAppear(animated: Bool){
+    override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.mapView.addAnnotation(appDelegate.personalLocation.selectedLocation!)
         self.mapView.showAnnotations(mapView.annotations, animated: true)
     }
@@ -36,40 +36,40 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
         self.view.endEditing(true)
         
         //Disable button
-        self.btnSubmit.enabled = false
+        self.btnSubmit.isEnabled = false
         
         //Validate URL
         let addedUrl = self.txtUrl.text
         
         if isValidUrl(addedUrl!) {
             //Url valid
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.personalLocation.mediaUrl = NSURL(string: addedUrl!)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.personalLocation.mediaUrl = URL(string: addedUrl!) 
             
             //Make the service call
             appDelegate.apiFacade.delegate = self
             appDelegate.apiFacade.getAccountDetails(appDelegate.personalLocation.accountId!)
         } else {
-            let alert = UIAlertController(title: nil, message: "Please enter a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: nil, message: "Please enter a valid URL", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func accountDetailsRetrieved(successfull: Bool) {
-        self.btnSubmit.enabled = true
+    func accountDetailsRetrieved(_ successfull: Bool) {
+        self.btnSubmit.isEnabled = true
         if(!successfull){
-            let alert = UIAlertController(title: nil, message: "Unable to retrieve your information from the Udacity API. Please try again later.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            let alert = UIAlertController(title: nil, message: "Unable to retrieve your information from the Udacity API. Please try again later.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         } else {            
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.apiFacade.delegate = self
             appDelegate.apiFacade.submitPersonalLocation(appDelegate.personalLocation)
         }
     }
     
-    func userLocationSubmitted(successfull: Bool) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func userLocationSubmitted(_ successfull: Bool) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -79,13 +79,13 @@ class InfoPostMapViewController : UIViewController, UITextFieldDelegate, MKMapVi
      * for example). As per the stackoverflow (http://stackoverflow.com/questions/1471201/how-to-validate-an-url-on-the-iphone) there is no
      * perfect solution 
      */
-    func isValidUrl(url: String) -> Bool {
-        let request = NSURLRequest(URL: NSURL(string: url)!)
+    func isValidUrl(_ url: String) -> Bool {
+        let request = URLRequest(url: URL(string: url)!)
         
-        return NSURLConnection.canHandleRequest(request)
+        return NSURLConnection.canHandle(request)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField == txtUrl){
             self.submit()
         }

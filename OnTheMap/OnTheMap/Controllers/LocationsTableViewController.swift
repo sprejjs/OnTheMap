@@ -10,33 +10,33 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
     
     var studentsLocations: [StudentLocation]?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let apiFacade = appDelegate.apiFacade
         apiFacade.delegate = self
         
         apiFacade.getStudentsLocations(false)
     }
     
-    func studentsLocationsRetrieved(studentsLocations: [StudentLocation]?) {
+    func studentsLocationsRetrieved(_ studentsLocations: [StudentLocation]?) {
         self.studentsLocations = studentsLocations
 
         if(studentsLocations == nil) {
             let alert = UIAlertController(title: nil, message: "Unable to retrieve student's locations. Please try again later",
-                    preferredStyle: UIAlertControllerStyle.Alert)
-            presentViewController(alert, animated: true, completion: nil);
+                    preferredStyle: UIAlertControllerStyle.alert)
+            present(alert, animated: true, completion: nil);
         }
         
         //Needs to be called on the main thread, to ensure the view is updated
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
 
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if studentsLocations != nil {
             return studentsLocations!.count
         } else {
@@ -44,9 +44,9 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("NameCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as UITableViewCell
         
         let studentLocation = self.studentsLocations![indexPath.item] as StudentLocation
         
@@ -56,11 +56,11 @@ class LocationsTableViewController: UITableViewController, ApiFacadeDelegate {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let studentLocation = self.studentsLocations![indexPath.item] as StudentLocation
         
-        UIApplication.sharedApplication().openURL(studentLocation.mediaUrl)
+        UIApplication.shared.openURL(studentLocation.mediaUrl as! URL)
         
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
